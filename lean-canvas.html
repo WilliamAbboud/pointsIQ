@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PointsIQ — Lean Canvas</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f1f5f9; color: #1e293b; padding: 32px 24px; line-height: 1.5; }
+  .page { max-width: 1400px; margin: 0 auto; }
+  header.head { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 55%, #0c2240 100%); color: white; padding: 22px 28px; border-radius: 18px 18px 0 0; display: flex; align-items: center; gap: 14px; }
+  .head-logo { width: 42px; height: 42px; background: #4f46e5; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .head-title { font-weight: 800; font-size: 18px; }
+  .head-sub { color: #93c5fd; font-size: 12px; }
+  .canvas { background: white; border-radius: 0 0 18px 18px; box-shadow: 0 8px 24px rgba(15,23,42,0.08); display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: auto auto auto; border: 1px solid #e2e8f0; overflow: hidden; }
+  .cell { border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 18px 18px 20px; min-height: 180px; }
+  .cell:last-child { border-right: none; }
+  .c-problem    { grid-column: 1 / 3; grid-row: 1; }
+  .c-solution   { grid-column: 3 / 5; grid-row: 1; }
+  .c-uvp        { grid-column: 5 / 7; grid-row: 1 / 3; }
+  .c-unfair     { grid-column: 7 / 9; grid-row: 1; }
+  .c-segments   { grid-column: 9 / 11; grid-row: 1; border-right: none; }
+  .c-existing   { grid-column: 1 / 3; grid-row: 2; }
+  .c-metrics    { grid-column: 3 / 5; grid-row: 2; }
+  .c-channels   { grid-column: 7 / 9; grid-row: 2; }
+  .c-adopters   { grid-column: 9 / 11; grid-row: 2; border-right: none; }
+  .c-cost       { grid-column: 1 / 6; grid-row: 3; border-bottom: none; }
+  .c-revenue    { grid-column: 6 / 11; grid-row: 3; border-right: none; border-bottom: none; }
+  .c-uvp { background: #eef2ff; }
+  .cell h3 { font-size: 12px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .cell h3 .ic { width: 22px; height: 22px; background: #4f46e5; color: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .c-uvp h3 .ic { background: #4338ca; }
+  .cell .hint { font-size: 10px; color: #94a3b8; margin-bottom: 12px; }
+  .cell ul, .cell ol { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #334155; line-height: 1.5; }
+  .cell ol { counter-reset: item; }
+  .cell ul li { padding-left: 14px; position: relative; }
+  .cell ul li::before { content: "•"; position: absolute; left: 0; top: 0; color: #6366f1; font-weight: 800; }
+  .cell ol li { counter-increment: item; padding-left: 24px; position: relative; }
+  .cell ol li::before { content: counter(item) "."; position: absolute; left: 0; top: 0; color: #4338ca; font-weight: 800; }
+  .cell b { color: #0f172a; font-weight: 700; }
+  .c-uvp .uvp-body { font-size: 13.5px; color: #1e293b; line-height: 1.55; }
+  .cost-split { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .cost-split .label { font-size: 11px; font-weight: 800; color: #4338ca; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .rev-note { margin-top: 14px; padding: 10px 12px; background: #f5f3ff; border: 1px solid #c7d2fe; border-radius: 8px; font-size: 12.5px; color: #334155; line-height: 1.5; }
+  .rev-note .label { font-size: 11px; font-weight: 800; color: #4338ca; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+  @media print { @page { size: A3 landscape; margin: 10mm; } body { padding: 0; background: white; } .canvas { box-shadow: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+<header class="head">
+  <div class="head-logo">✈</div>
+  <div>
+    <div class="head-title">PointsIQ Lean Canvas</div>
+    <div class="head-sub">Loyalty portfolio tracker and award optimizer</div>
+  </div>
+</header>
+<div class="canvas">
+  <div class="cell c-problem">
+    <h3><span class="ic">?</span>Problem</h3>
+    <div class="hint">List top 1 to 3 problems</div>
+    <ol>
+      <li><b>Scattered balances.</b> Points sit across multiple programs; no clear view of total value.</li>
+      <li><b>Points expire.</b> Programs remove balances after periods of inactivity; users lose value without notice.</li>
+      <li><b>Low value use.</b> Users redeem at about zero point six cents per point while better options reach five to thirteen cents.</li>
+    </ol>
+  </div>
+  <div class="cell c-solution">
+    <h3><span class="ic">💡</span>Solution</h3>
+    <div class="hint">Outline a possible solution for each problem</div>
+    <ol>
+      <li><b>Portfolio dashboard.</b> Secure OAuth connections to each program; balances shown in one place and valued in United States dollars.</li>
+      <li><b>Expiration tracking.</b> Ongoing monitoring with alerts issued weeks before points expire.</li>
+      <li><b>Redemption optimizer.</b> Ranked options by value per point; aligned with actual balances.</li>
+    </ol>
+  </div>
+  <div class="cell c-uvp">
+    <h3><span class="ic">★</span>Unique Value Proposition</h3>
+    <div class="hint">Single, clear, compelling message that states why you are different and worth paying attention</div>
+    <div class="uvp-body">Award Hacker meets Seat.aero for owned points. Full portfolio tracked, valued, optimized. System starts from inventory; it knows balances, value, expiry, and best available redemption.</div>
+  </div>
+  <div class="cell c-unfair">
+    <h3><span class="ic">♞</span>Unfair Advantage</h3>
+    <div class="hint">Something that cannot easily be bought or copied</div>
+    <ul>
+      <li><b>Portfolio data moat.</b> After six connected programs, switching costs rise; inventory layer remains distinct.</li>
+      <li><b>Proprietary valuation model.</b> Real time cents per point from live availability.</li>
+      <li><b>Negotiated affiliate economics.</b> Direct issuer relationships supported by conversion data.</li>
+      <li>Founder credibility in points and travel communities.</li>
+    </ul>
+  </div>
+  <div class="cell c-segments">
+    <h3><span class="ic">👤</span>Customer Segments</h3>
+    <div class="hint">List your target customers and users</div>
+    <ul>
+      <li>Points enthusiasts from award travel and churning communities.</li>
+      <li>Premium cardholders such as American Express Platinum, Chase Sapphire Reserve, Capital One Venture X.</li>
+      <li>Frequent business travelers with net point accumulation.</li>
+      <li>High income users who want structured usage.</li>
+      <li>Future: issuers as business to business partners.</li>
+    </ul>
+  </div>
+  <div class="cell c-existing">
+    <h3><span class="ic">✓</span>Existing Alternatives</h3>
+    <div class="hint">List how these problems are solved today</div>
+    <ul>
+      <li>Manual spreadsheets and fragmented apps.</li>
+      <li>Award Hacker for transfer search only.</li>
+      <li>Seat.aero for availability only.</li>
+      <li>point.me for search plus concierge; no balance tracking.</li>
+      <li>AwardWallet for inventory; limited valuation and optimization.</li>
+      <li>Memory based tracking; balances expire.</li>
+    </ul>
+  </div>
+  <div class="cell c-metrics">
+    <h3><span class="ic">📊</span>Key Metrics</h3>
+    <div class="hint">List the key numbers that tell you how your business is doing</div>
+    <ul>
+      <li>Activation rate; users with three or more linked programs within seven days.</li>
+      <li>Weekly active users and day thirty retention.</li>
+      <li>Paid conversion from free to nine dollars per month.</li>
+      <li>Affiliate revenue per active user per year.</li>
+      <li>Alert action rate.</li>
+      <li>Total portfolio value tracked.</li>
+      <li>Lifetime value to customer acquisition cost ratio; target above three.</li>
+    </ul>
+  </div>
+  <div class="cell c-channels">
+    <h3><span class="ic">⇄</span>Channels</h3>
+    <div class="hint">List your path to customer (inbound or outbound)</div>
+    <ul>
+      <li>Search engine optimization for long tail queries on point value.</li>
+      <li>Creator partnerships with established travel voices.</li>
+      <li>Community distribution on Reddit, FlyerTalk, and X.</li>
+      <li>Referral program with one month incentive.</li>
+      <li>Paid search on competitor terms.</li>
+      <li>App store after mobile launch.</li>
+    </ul>
+  </div>
+  <div class="cell c-adopters">
+    <h3><span class="ic">⭐</span>Early Adopters</h3>
+    <div class="hint">List the characteristics of your ideal customers</div>
+    <ul>
+      <li>United States based; age twenty eight to fifty; household income above one hundred fifty thousand.</li>
+      <li>Hold three or more premium cards.</li>
+      <li>Active in relevant communities.</li>
+      <li>Pay for at least one existing tool.</li>
+      <li>Travel internationally at least twice per year.</li>
+      <li>Have lost points to expiration at least once.</li>
+      <li>Value savings above five hundred dollars per redemption.</li>
+    </ul>
+  </div>
+  <div class="cell c-cost">
+    <h3><span class="ic">$</span>Cost Structure</h3>
+    <div class="hint">List your fixed and variable costs</div>
+    <div class="cost-split">
+      <div>
+        <div class="label">Fixed</div>
+        <ul>
+          <li>Engineering salaries; two to four full time equivalents in year one.</li>
+          <li>Design and marketing contractors.</li>
+          <li>Cloud infrastructure; about five hundred to two thousand dollars per month at minimum viable scale.</li>
+          <li>OAuth and financial data provider retainers.</li>
+          <li>Domain and legal including terms of service, privacy, and security compliance preparation.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="label">Variable</div>
+        <ul>
+          <li>Account aggregation fees per connected user per month.</li>
+          <li>Scraping and headless browser infrastructure for airline and hotel programs.</li>
+          <li>Payment processing; about two point nine percent plus thirty cents per subscription.</li>
+          <li>Paid acquisition through search and creator placements.</li>
+          <li>Customer support scaled with users.</li>
+          <li>Affiliate tracking platform fees.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="cell c-revenue">
+    <h3><span class="ic">💰</span>Revenue Streams</h3>
+    <div class="hint">List your sources of revenue</div>
+    <ol>
+      <li><b>Subscription.</b> Nine dollars per month or seventy nine dollars per year; unlocks optimizer, alerts, unlimited programs, availability search.</li>
+      <li><b>Credit card affiliate commissions.</b> Two hundred to nine hundred dollars per approved card; recommendations based on portfolio gaps.</li>
+      <li><b>Concierge booking service in year two.</b> Fifty to one hundred dollars per ticket for redemption support.</li>
+      <li><b>Transfer bonus placement fees from year two onward.</b></li>
+      <li><b>Business to business licensing later;</b> portfolio layer for issuers or travel brands.</li>
+    </ol>
+    <div class="rev-note">
+      <div class="label">Expected mix in year two</div>
+      About forty five percent subscription, forty five percent affiliate, ten percent concierge. Free users generate affiliate revenue without a paid tier.
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

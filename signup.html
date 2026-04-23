@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sign up — PointsIQ</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 55%, #0c2240 100%);
+    min-height: 100vh;
+    color: #1e293b;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(79,70,229,0.25), transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(14,165,233,0.18), transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+  .form-panel { background: white; padding: 48px 56px; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #0f172a; margin-bottom: 48px; }
+  .logo { width: 36px; height: 36px; background: #4f46e5; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; }
+  .brand small { display: block; color: #4f46e5; font-weight: 500; font-size: 11px; margin-top: -2px; letter-spacing: .04em; }
+  .form-inner { max-width: 400px; width: 100%; margin: auto 0; }
+  h1 { font-size: 30px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; color: #0f172a; }
+  .sub { color: #64748b; font-size: 15px; margin-bottom: 34px; }
+  .plan-badge { display: inline-flex; align-items: center; gap: 6px; background: #f5f3ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 5px 12px; border-radius: 14px; font-size: 12px; font-weight: 700; margin-bottom: 18px; }
+  .social-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+  .social-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 14px; border-radius: 10px; border: 1px solid #e2e8f0; background: white; font-weight: 600; font-size: 14px; color: #334155; cursor: pointer; font-family: inherit; transition: all .15s; }
+  .social-btn:hover { border-color: #c7d2fe; background: #f8fafc; }
+  .social-btn .ic { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; }
+  .divider { display: flex; align-items: center; gap: 12px; margin: 6px 0 24px; color: #94a3b8; font-size: 12px; }
+  .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #e2e8f0; }
+  .field { margin-bottom: 18px; }
+  .field label { display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+  .input-wrap { position: relative; }
+  .field input { width: 100%; padding: 13px 16px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 14px; font-family: inherit; transition: all .15s; background: white; color: #0f172a; }
+  .field input:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,0.12); }
+  .field input.has-toggle { padding-right: 58px; }
+  .toggle-pw { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; font-size: 12px; font-weight: 700; padding: 6px 10px; cursor: pointer; font-family: inherit; }
+  .toggle-pw:hover { color: #4f46e5; }
+  .hint { font-size: 12px; color: #94a3b8; margin-top: 5px; }
+  .hint.strong { color: #059669; }
+  .hint.weak { color: #dc2626; }
+  .check-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 22px; font-size: 13px; color: #64748b; line-height: 1.5; }
+  .check-row input { margin-top: 2px; accent-color: #4f46e5; }
+  .check-row a { color: #4338ca; font-weight: 600; }
+  .check-row a:hover { text-decoration: underline; }
+  .submit { width: 100%; padding: 14px; background: #4f46e5; color: white; border: none; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; font-family: inherit; transition: all .15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .submit:hover { background: #4338ca; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(79,70,229,0.35); }
+  .submit:disabled { opacity: 0.6; cursor: wait; transform: none; box-shadow: none; }
+  .submit.success { background: #059669; }
+  .error-msg { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; font-size: 13px; padding: 10px 14px; border-radius: 10px; margin-bottom: 16px; display: none; }
+  .error-msg.show { display: block; }
+  .switch-auth { text-align: center; margin-top: 28px; font-size: 14px; color: #64748b; }
+  .switch-auth a { color: #4338ca; font-weight: 700; }
+  .switch-auth a:hover { text-decoration: underline; }
+  .info-panel { padding: 56px; color: white; display: flex; flex-direction: column; justify-content: center; position: relative; }
+  .info-inner { max-width: 420px; }
+  .info-eyebrow { font-size: 12px; font-weight: 700; color: #a5b4fc; text-transform: uppercase; letter-spacing: .15em; margin-bottom: 14px; }
+  .info-title { font-size: 34px; font-weight: 900; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 18px; }
+  .info-title .grad { background: linear-gradient(90deg, #a5b4fc, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .info-sub { font-size: 15px; color: #cbd5e1; margin-bottom: 32px; }
+  .value-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+  .value-item { display: flex; gap: 12px; align-items: flex-start; }
+  .value-ic { width: 36px; height: 36px; flex-shrink: 0; background: rgba(79,70,229,0.2); color: #a5b4fc; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; border: 1px solid rgba(165,180,252,0.2); }
+  .value-text strong { display: block; font-size: 14px; color: white; margin-bottom: 2px; font-weight: 700; }
+  .value-text span { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .stat-val { font-size: 22px; font-weight: 900; color: white; letter-spacing: -0.02em; }
+  .stat-lbl { font-size: 11px; color: #94a3b8; margin-top: 2px; text-transform: uppercase; letter-spacing: .08em; }
+  @media(max-width: 900px) {
+    .wrap { grid-template-columns: 1fr; }
+    .info-panel { display: none; }
+    .form-panel { padding: 40px 28px; min-height: 100vh; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="form-panel">
+    <a href="index.html" class="brand">
+      <span class="logo">✈</span>
+      <span>PointsIQ<small>Loyalty Portfolio</small></span>
+    </a>
+    <div class="form-inner">
+      <span id="planBadge" class="plan-badge" style="display:none;">✦ Starting with Pro</span>
+      <h1>Create your account</h1>
+      <p class="sub">Start tracking your loyalty portfolio in under a minute. No credit card required.</p>
+      <div class="social-row">
+        <button class="social-btn" type="button" onclick="mockSocial('Google')"><span class="ic" style="color:#ea4335">G</span>Google</button>
+        <button class="social-btn" type="button" onclick="mockSocial('Apple')"><span class="ic" style="color:#000"></span>Apple</button>
+      </div>
+      <div class="divider">or sign up with email</div>
+      <div id="errorMsg" class="error-msg"></div>
+      <form id="signupForm" novalidate>
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" placeholder="Alex Traveler" required autocomplete="name"/>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required autocomplete="email"/>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <input id="password" name="password" type="password" placeholder="8+ characters" required autocomplete="new-password" class="has-toggle" minlength="8"/>
+            <button type="button" class="toggle-pw" onclick="togglePw('password', this)">Show</button>
+          </div>
+          <div id="pwHint" class="hint">Use at least 8 characters.</div>
+        </div>
+        <div class="check-row">
+          <input id="agree" type="checkbox" required/>
+          <label for="agree">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. PointsIQ uses read-only bank and loyalty connections. We never store passwords.</label>
+        </div>
+        <button type="submit" class="submit" id="submitBtn">Create account →</button>
+      </form>
+      <div class="switch-auth">Already have an account? <a href="login.html">Log in</a></div>
+    </div>
+  </div>
+  <div class="info-panel">
+    <div class="info-inner">
+      <div class="info-eyebrow">What you unlock</div>
+      <h2 class="info-title">Every point you own, <span class="grad">finally worth what it should be.</span></h2>
+      <p class="info-sub">Connect your accounts and PointsIQ starts working immediately. Tracking balances, valuing them in real dollars, and surfacing the best place to redeem.</p>
+      <div class="value-list">
+        <div class="value-item"><div class="value-ic">📊</div><div class="value-text"><strong>Full portfolio in one dashboard</strong><span>Balances, values, and categories across every program you use.</span></div></div>
+        <div class="value-item"><div class="value-ic">⏰</div><div class="value-text"><strong>Never lose points to expiration</strong><span>Proactive alerts weeks before points would disappear.</span></div></div>
+        <div class="value-item"><div class="value-ic">🎯</div><div class="value-text"><strong>Redemptions ranked by value</strong><span>The optimizer shows you the highest cents per point move you can make today.</span></div></div>
+        <div class="value-item"><div class="value-ic">🔒</div><div class="value-text"><strong>Bank-grade security</strong><span>Read-only OAuth. Encrypted at rest. We never see your passwords.</span></div></div>
+      </div>
+      <div class="stat-row">
+        <div><div class="stat-val">40+</div><div class="stat-lbl">Programs</div></div>
+        <div><div class="stat-val">6 hrs</div><div class="stat-lbl">Auto-sync</div></div>
+        <div><div class="stat-val">13¢</div><div class="stat-lbl">Peak ¢/pt</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('plan') === 'pro') { document.getElementById('planBadge').style.display = 'inline-flex'; }
+  function togglePw(id, btn) {
+    const input = document.getElementById(id);
+    if (input.type === 'password') { input.type = 'text'; btn.textContent = 'Hide'; }
+    else { input.type = 'password'; btn.textContent = 'Show'; }
+  }
+  const pwInput = document.getElementById('password');
+  const pwHint = document.getElementById('pwHint');
+  pwInput.addEventListener('input', () => {
+    const v = pwInput.value;
+    if (v.length === 0) { pwHint.textContent = 'Use at least 8 characters.'; pwHint.className = 'hint'; }
+    else if (v.length < 8) { pwHint.textContent = 'A bit more... (' + v.length + '/8)'; pwHint.className = 'hint weak'; }
+    else { pwHint.textContent = 'Looks good ✓'; pwHint.className = 'hint strong'; }
+  });
+  function mockSocial(provider) {
+    const err = document.getElementById('errorMsg');
+    err.textContent = provider + ' sign-in is not wired up yet. Use email for now.';
+    err.className = 'error-msg show';
+  }
+  const form = document.getElementById('signupForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const err = document.getElementById('errorMsg');
+    const btn = document.getElementById('submitBtn');
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const pw = document.getElementById('password').value;
+    const agree = document.getElementById('agree').checked;
+    err.className = 'error-msg';
+    if (!name) { err.textContent = 'Please enter your full name.'; err.className = 'error-msg show'; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Please enter a valid email address.'; err.className = 'error-msg show'; return; }
+    if (pw.length < 8) { err.textContent = 'Password must be at least 8 characters.'; err.className = 'error-msg show'; return; }
+    if (!agree) { err.textContent = 'Please agree to the Terms to continue.'; err.className = 'error-msg show'; return; }
+    try { localStorage.setItem('pointsiq_user', JSON.stringify({ name, email, plan: params.get('plan') || 'free', createdAt: Date.now() })); } catch (_) {}
+    btn.disabled = true;
+    btn.textContent = '✓ Account created. Redirecting...';
+    btn.className = 'submit success';
+    setTimeout(() => { window.location.href = 'pointsiq.html'; }, 900);
+  });
+</script>
+</body>
+</html>

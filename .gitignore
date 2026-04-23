@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs and local session data
+*.log
+audit.jsonl
+
+# Build artifacts
+node_modules/
+dist/
+build/
+
+# Secrets — NEVER commit tokens
+.env
+.env.local
+*.pat

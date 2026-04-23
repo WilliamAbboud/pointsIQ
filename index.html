@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PointsIQ — Your entire loyalty portfolio, finally worth what it should be</title>
+<meta name="description" content="PointsIQ tracks, values, and optimizes every mile, point, and loyalty balance you own across banks, airlines, and hotels. Never let points expire again."/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* NAV */
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(15, 23, 42, 0.92); backdrop-filter: saturate(150%) blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); color: white; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1120px; margin: 0 auto; }
+  .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; }
+  .nav-logo { width: 34px; height: 34px; background: #4f46e5; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .nav-brand small { color: #93c5fd; font-weight: 500; font-size: 11px; display: block; margin-top: -2px; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: #cbd5e1; }
+  .nav-links a:hover { color: white; }
+  .nav-cta { background: #4f46e5; color: white; padding: 9px 18px; border-radius: 20px; font-weight: 700; font-size: 13px; transition: background .15s; }
+  .nav-cta:hover { background: #4338ca; }
+  @media(max-width: 720px) { .nav-links { display: none; } }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 55%, #0c2240 100%); color: white; padding: 80px 24px 120px; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(79,70,229,0.25), transparent 40%), radial-gradient(circle at 80% 60%, rgba(14,165,233,0.18), transparent 45%); pointer-events: none; }
+  .hero-inner { max-width: 1120px; margin: 0 auto; position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(79,70,229,0.2); border: 1px solid rgba(165,180,252,0.3); padding: 6px 14px; border-radius: 20px; font-size: 12px; color: #c7d2fe; font-weight: 600; letter-spacing: .02em; margin-bottom: 22px; }
+  .hero-dot { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .4 } }
+  .hero h1 { font-size: 56px; font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 22px; }
+  .hero h1 span.grad { background: linear-gradient(90deg, #a5b4fc, #60a5fa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p.sub { font-size: 19px; color: #cbd5e1; margin-bottom: 32px; max-width: 560px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { background: #4f46e5; color: white; padding: 14px 26px; border-radius: 22px; font-weight: 700; font-size: 15px; border: none; cursor: pointer; transition: all .15s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { background: #4338ca; transform: translateY(-1px); box-shadow: 0 10px 25px rgba(79,70,229,0.4); }
+  .btn-ghost { background: rgba(255,255,255,0.06); color: white; padding: 14px 24px; border-radius: 22px; font-weight: 600; font-size: 15px; border: 1px solid rgba(255,255,255,0.18); cursor: pointer; transition: all .15s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); }
+  .hero-stats { display: flex; gap: 32px; margin-top: 40px; font-size: 13px; color: #94a3b8; }
+  .hero-stats strong { color: white; font-weight: 800; font-size: 22px; display: block; margin-bottom: 2px; }
+  .hero-card { background: rgba(255,255,255,0.06); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 22px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+  .hero-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .hero-card-label { color: #93c5fd; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
+  .hero-card-pill { background: rgba(74,222,128,0.15); border: 1px solid rgba(74,222,128,0.3); color: #86efac; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 14px; }
+  .hero-total { font-size: 48px; font-weight: 900; margin-bottom: 4px; letter-spacing: -0.02em; }
+  .hero-total small { font-size: 15px; color: #86efac; font-weight: 600; }
+  .hero-sub-total { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+  .hero-mini-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .hero-mini { background: rgba(15,23,42,0.4); border-radius: 12px; padding: 12px; text-align: center; }
+  .hero-mini-ic { font-size: 18px; margin-bottom: 4px; }
+  .hero-mini-name { font-size: 10px; color: #94a3b8; margin-bottom: 3px; }
+  .hero-mini-val { font-size: 14px; font-weight: 800; color: white; }
+  .hero-alert { background: rgba(239,68,68,0.12); border: 1px solid rgba(252,165,165,0.3); border-radius: 12px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; }
+  .hero-alert-ic { flex-shrink: 0; }
+  .hero-alert-body { font-size: 12px; color: #fecaca; }
+  .hero-alert-body strong { color: #fee2e2; display: block; margin-bottom: 2px; font-size: 13px; }
+  @media(max-width: 900px) { .hero-inner { grid-template-columns: 1fr; gap: 40px; } .hero h1 { font-size: 40px; } .hero { padding: 60px 24px 80px; } }
+
+  /* LOGO STRIP */
+  .logo-strip { background: white; border-bottom: 1px solid #e2e8f0; padding: 28px 24px; }
+  .logo-strip-inner { max-width: 1120px; margin: 0 auto; }
+  .logo-strip-title { text-align: center; font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 18px; }
+  .logo-strip-row { display: flex; justify-content: center; align-items: center; gap: 42px; flex-wrap: wrap; }
+  .logo-item { display: flex; align-items: center; gap: 8px; color: #64748b; font-weight: 700; font-size: 15px; }
+  .logo-item span.ic { font-size: 20px; }
+
+  /* SECTION BASE */
+  section { padding: 100px 24px; }
+  .section-eyebrow { font-size: 12px; font-weight: 700; color: #4f46e5; text-transform: uppercase; letter-spacing: .15em; margin-bottom: 14px; }
+  .section-title { font-size: 42px; font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a; margin-bottom: 16px; max-width: 700px; }
+  .section-sub { font-size: 18px; color: #64748b; max-width: 660px; margin-bottom: 48px; }
+
+  /* PROBLEM */
+  .problem { background: white; border-top: 1px solid #e2e8f0; }
+  .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 16px; }
+  .problem-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 28px; transition: all .2s; }
+  .problem-card:hover { border-color: #c7d2fe; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(79,70,229,0.1); }
+  .problem-ic { width: 46px; height: 46px; border-radius: 12px; background: #fee2e2; color: #b91c1c; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+  .problem-ic.orange { background: #fef3c7; color: #b45309; }
+  .problem-ic.blue { background: #dbeafe; color: #1d4ed8; }
+  .problem-title { font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
+  .problem-desc { font-size: 15px; color: #64748b; line-height: 1.55; }
+  @media(max-width: 780px) { .problem-grid { grid-template-columns: 1fr; } }
+
+  /* HOW */
+  .how { background: #f1f5f9; }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 24px; position: relative; }
+  .steps-grid::before { content: ""; position: absolute; top: 42px; left: 15%; right: 15%; height: 2px; background: repeating-linear-gradient(90deg, #cbd5e1 0, #cbd5e1 6px, transparent 6px, transparent 12px); z-index: 0; }
+  .step { background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 32px 24px; text-align: center; position: relative; z-index: 1; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+  .step-num { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 19px; margin: 0 auto 18px; box-shadow: 0 4px 12px rgba(79,70,229,0.3); }
+  .step-ic { font-size: 36px; margin-bottom: 14px; }
+  .step-title { font-size: 19px; font-weight: 800; color: #0f172a; margin-bottom: 10px; }
+  .step-desc { font-size: 14px; color: #64748b; line-height: 1.6; }
+  @media(max-width: 780px) { .steps-grid { grid-template-columns: 1fr; } .steps-grid::before { display: none; } }
+
+  /* PREVIEW */
+  .preview { background: white; }
+  .preview-container { margin-top: 40px; border-radius: 24px; overflow: hidden; box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.35); border: 1px solid #e2e8f0; background: white; }
+  .preview-topbar { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 55%, #0c2240 100%); color: white; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; }
+  .preview-topbar-left { display: flex; align-items: center; gap: 10px; }
+  .preview-topbar-dot { width: 10px; height: 10px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+  .preview-topbar-title { font-weight: 800; font-size: 15px; }
+  .preview-topbar-sub { color: #93c5fd; font-size: 12px; margin-top: 1px; }
+  .preview-kpis { background: linear-gradient(135deg, #0c2240 0%, #1e3a5f 100%); padding: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .p-kpi { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 16px; color: white; }
+  .p-kpi.danger { background: rgba(239,68,68,0.15); border-color: rgba(252,165,165,0.3); }
+  .p-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: #93c5fd; margin-bottom: 6px; font-weight: 700; }
+  .p-kpi.danger .p-kpi-label { color: #fca5a5; }
+  .p-kpi-val { font-size: 26px; font-weight: 900; line-height: 1; }
+  .p-kpi-sub { font-size: 11px; color: #93c5fd; margin-top: 3px; }
+  .p-kpi.danger .p-kpi-sub { color: #fca5a5; }
+  .preview-body { padding: 28px 24px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; background: #f8fafc; }
+  .p-card { background: white; border: 1px solid #f1f5f9; border-radius: 16px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .p-card-title { font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 14px; }
+  .p-donut-wrap { display: flex; justify-content: center; margin-bottom: 10px; }
+  .p-legend { display: flex; flex-direction: column; gap: 6px; font-size: 12px; }
+  .p-legend-row { display: flex; justify-content: space-between; align-items: center; }
+  .p-legend-name { display: flex; align-items: center; gap: 6px; color: #64748b; }
+  .p-legend-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .p-legend-val { font-weight: 700; color: #1e293b; }
+  .p-progs { display: flex; flex-direction: column; gap: 8px; }
+  .p-prog { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #f8fafc; border-radius: 10px; font-size: 13px; }
+  .p-prog-left { display: flex; align-items: center; gap: 10px; }
+  .p-prog-ic { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 13px; }
+  .p-prog-name { font-weight: 700; color: #1e293b; }
+  .p-prog-pts { font-size: 11px; color: #94a3b8; }
+  .p-prog-val { font-weight: 800; color: #0f172a; font-size: 14px; }
+  .preview-caption { text-align: center; font-size: 13px; color: #94a3b8; margin-top: 18px; }
+  @media(max-width: 780px) { .preview-kpis { grid-template-columns: 1fr; } .preview-body { grid-template-columns: 1fr; } }
+
+  /* FEATURES */
+  .features { background: #0f172a; color: white; }
+  .features .section-title { color: white; }
+  .features .section-sub { color: #94a3b8; }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+  .feat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 28px; transition: all .2s; }
+  .feat:hover { border-color: rgba(165,180,252,0.4); background: rgba(79,70,229,0.08); transform: translateY(-3px); }
+  .feat-ic { width: 46px; height: 46px; border-radius: 12px; background: rgba(79,70,229,0.2); color: #a5b4fc; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; border: 1px solid rgba(165,180,252,0.2); }
+  .feat-title { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+  .feat-desc { font-size: 14px; color: #cbd5e1; line-height: 1.6; }
+  @media(max-width: 900px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+  @media(max-width: 600px) { .features-grid { grid-template-columns: 1fr; } }
+
+  /* WHY */
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+  .why-card { background: white; border: 1px solid #e2e8f0; border-radius: 18px; padding: 28px; position: relative; transition: all .2s; }
+  .why-card:hover { border-color: #c7d2fe; box-shadow: 0 10px 25px rgba(79,70,229,0.08); transform: translateY(-2px); }
+  .why-num { font-size: 40px; font-weight: 900; color: #c7d2fe; line-height: 1; margin-bottom: 14px; letter-spacing: -0.02em; }
+  .why-title { font-size: 19px; font-weight: 800; color: #0f172a; margin-bottom: 10px; }
+  .why-desc { font-size: 14.5px; color: #64748b; line-height: 1.6; }
+  .why-desc em { color: #4338ca; font-style: normal; font-weight: 600; }
+  @media(max-width: 780px) { .why-grid { grid-template-columns: 1fr; } }
+
+  /* PRICING */
+  .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 820px; margin: 24px auto 0; }
+  .price-card { background: white; border: 1px solid #e2e8f0; border-radius: 22px; padding: 36px 30px; position: relative; display: flex; flex-direction: column; }
+  .price-card.featured { border-color: #4f46e5; box-shadow: 0 25px 50px -20px rgba(79,70,229,0.3); background: linear-gradient(180deg, #ffffff 0%, #f5f3ff 100%); }
+  .price-ribbon { position: absolute; top: -13px; right: 24px; background: #4f46e5; color: white; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 14px; letter-spacing: .04em; text-transform: uppercase; }
+  .price-tier { font-size: 14px; font-weight: 700; color: #4338ca; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+  .price-amount { font-size: 48px; font-weight: 900; color: #0f172a; line-height: 1; margin-bottom: 4px; letter-spacing: -0.02em; }
+  .price-amount span { font-size: 15px; color: #94a3b8; font-weight: 600; }
+  .price-tag { font-size: 13px; color: #64748b; margin-bottom: 22px; }
+  .price-list { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: #334155; margin-bottom: 28px; flex: 1; }
+  .price-list li { padding-left: 26px; position: relative; line-height: 1.5; }
+  .price-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 800; }
+  .price-cta { display: inline-block; text-align: center; padding: 13px 22px; border-radius: 22px; font-weight: 700; font-size: 14px; transition: all .15s; }
+  .price-cta.primary { background: #4f46e5; color: white; }
+  .price-cta.primary:hover { background: #4338ca; }
+  .price-cta.ghost { background: #f1f5f9; color: #1e293b; border: 1px solid #e2e8f0; }
+  .price-cta.ghost:hover { background: #e2e8f0; }
+  .pricing-footnote { font-size: 12px; color: #94a3b8; margin-top: 28px; text-align: center; max-width: 640px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  @media(max-width: 700px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+  /* FAQ */
+  .faq { background: white; }
+  .faq-list { margin-top: 24px; max-width: 820px; }
+  .faq-item { border-bottom: 1px solid #e2e8f0; }
+  .faq-q { width: 100%; background: none; border: none; padding: 22px 0; display: flex; justify-content: space-between; align-items: center; text-align: left; cursor: pointer; font-size: 17px; font-weight: 700; color: #0f172a; font-family: inherit; }
+  .faq-q:hover { color: #4338ca; }
+  .faq-plus { font-size: 22px; color: #4f46e5; transition: transform .2s; flex-shrink: 0; margin-left: 16px; }
+  .faq-item.open .faq-plus { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease; font-size: 15px; color: #64748b; line-height: 1.65; padding: 0; }
+  .faq-item.open .faq-a { max-height: 300px; padding: 0 0 22px; }
+
+  /* CTA FINAL */
+  .cta-final { background: linear-gradient(135deg, #4338ca 0%, #4f46e5 50%, #6366f1 100%); color: white; text-align: center; padding: 90px 24px; }
+  .cta-final h2 { font-size: 42px; font-weight: 900; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .cta-final p { font-size: 18px; color: #e0e7ff; margin-bottom: 32px; max-width: 580px; margin-left: auto; margin-right: auto; }
+  .cta-final .btn-primary { background: white; color: #4338ca; font-size: 16px; padding: 16px 30px; }
+  .cta-final .btn-primary:hover { background: #f1f5f9; }
+  .cta-final .btn-ghost { background: transparent; border-color: rgba(255,255,255,0.4); }
+
+  /* FOOTER */
+  .footer { background: #0f172a; color: #94a3b8; padding: 56px 24px 28px; }
+  .footer-inner { max-width: 1120px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; color: white; margin-bottom: 12px; font-size: 17px; }
+  .footer-logo { width: 32px; height: 32px; background: #4f46e5; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .footer-tagline { font-size: 14px; color: #94a3b8; max-width: 320px; line-height: 1.55; }
+  .footer-col h4 { font-size: 12px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 14px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 14px; }
+  .footer-col a:hover { color: white; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; font-size: 12px; color: #64748b; flex-wrap: wrap; gap: 12px; }
+  .footer-socials { display: flex; gap: 14px; }
+  .footer-socials a { width: 32px; height: 32px; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: background .15s; }
+  .footer-socials a:hover { background: rgba(79,70,229,0.2); color: white; }
+  @media(max-width: 780px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+  @media(max-width: 480px) { .footer-top { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <div class="nav-logo">✈</div>
+      <div>PointsIQ<small>Loyalty Portfolio</small></div>
+    </div>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#preview">Product</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="login.html" style="font-size:14px;color:#cbd5e1;padding:8px 4px;">Log in</a>
+      <a href="signup.html" class="nav-cta">Sign up free</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="hero-dot"></span>
+        Portfolio tracking · Award search · Redemption optimizer
+      </div>
+      <h1>Your entire loyalty portfolio, <span class="grad">finally worth what it should be.</span></h1>
+      <p class="sub">PointsIQ tracks every mile, point, and loyalty balance you own across banks, airlines, and hotels. It values them in real dollars, catches expirations before they happen, and shows you exactly where to redeem for peak value.</p>
+      <div class="hero-ctas">
+        <a href="signup.html" class="btn-primary">Sign up free →</a>
+        <a href="pointsiq.html" class="btn-ghost">See the dashboard</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>40+</strong>Programs supported</div>
+        <div><strong>6 hrs</strong>Auto-sync</div>
+        <div><strong>0.6¢ → 13¢</strong>Redemption range</div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-top">
+        <div class="hero-card-label">Total portfolio value</div>
+        <div class="hero-card-pill">● Live sync</div>
+      </div>
+      <div class="hero-total">$8,147 <small>+$312 MTD</small></div>
+      <div class="hero-sub-total">602,850 combined points · 6 programs</div>
+      <div class="hero-mini-grid">
+        <div class="hero-mini"><div class="hero-mini-ic">💳</div><div class="hero-mini-name">Cards</div><div class="hero-mini-val">$4,111</div></div>
+        <div class="hero-mini"><div class="hero-mini-ic">✈️</div><div class="hero-mini-name">Airlines</div><div class="hero-mini-val">$992</div></div>
+        <div class="hero-mini"><div class="hero-mini-ic">🏨</div><div class="hero-mini-name">Hotels</div><div class="hero-mini-val">$3,044</div></div>
+      </div>
+      <div class="hero-alert">
+        <div class="hero-alert-ic">🚨</div>
+        <div class="hero-alert-body"><strong>$1,720 at risk of expiring</strong>Marriott Bonvoy expires in 8 days. Redeem or extend now.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="logo-strip">
+  <div class="logo-strip-inner">
+    <div class="logo-strip-title">Supports the programs you already use</div>
+    <div class="logo-strip-row">
+      <div class="logo-item"><span class="ic">💳</span>Chase UR</div>
+      <div class="logo-item"><span class="ic">💳</span>Amex MR</div>
+      <div class="logo-item"><span class="ic">✈️</span>Delta</div>
+      <div class="logo-item"><span class="ic">✈️</span>United</div>
+      <div class="logo-item"><span class="ic">🏨</span>Marriott</div>
+      <div class="logo-item"><span class="ic">🏨</span>Hilton</div>
+      <div class="logo-item" style="color:#94a3b8">+34 more</div>
+    </div>
+  </div>
+</div>
+
+<section class="problem" id="problem">
+  <div class="inner">
+    <div class="section-eyebrow">The problem</div>
+    <h2 class="section-title">Your points are scattered, expiring, and quietly losing value.</h2>
+    <p class="section-sub">The average traveler has points across five or more programs and never knows what they are worth, when they expire, or which redemption gives the best return. Billions of dollars in loyalty value go unused every year.</p>
+    <div class="problem-grid">
+      <div class="problem-card"><div class="problem-ic">🧩</div><div class="problem-title">Scattered balances</div><div class="problem-desc">Your miles and points live across a dozen apps and emails. Nobody has a single number for what it is all worth.</div></div>
+      <div class="problem-card"><div class="problem-ic orange">⏰</div><div class="problem-title">Silent expiration</div><div class="problem-desc">Programs quietly wipe balances after 12 to 24 months of inactivity. You find out after the fact, if at all.</div></div>
+      <div class="problem-card"><div class="problem-ic blue">📉</div><div class="problem-title">Leaving value on the table</div><div class="problem-desc">Using points for gift cards gets you 0.6¢ each. Transfer them right and the same points are worth 11¢ or more.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="inner">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-title">Three steps. Ten minutes. One portfolio.</h2>
+    <p class="section-sub">No spreadsheets, no manual logging. PointsIQ connects securely to your accounts and does the heavy lifting for you.</p>
+    <div class="steps-grid">
+      <div class="step"><div class="step-num">1</div><div class="step-ic">🔗</div><div class="step-title">Connect your accounts</div><div class="step-desc">Link Chase, Amex, Delta, United, Marriott, Hilton and 40 or more programs via secure OAuth. Takes about 10 minutes.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-ic">📊</div><div class="step-title">We track and value everything</div><div class="step-desc">Your balances sync every six hours. We apply real cents per point valuations so you see your portfolio in actual dollars.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-ic">🎯</div><div class="step-title">Redeem at peak value</div><div class="step-desc">Get alerts for expiring points and a ranked list of redemption opportunities, up to 13¢ per point on premium cabin awards.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="preview" id="preview">
+  <div class="inner">
+    <div class="section-eyebrow">What you get</div>
+    <h2 class="section-title">A dashboard built for loyalty portfolios, not spreadsheets.</h2>
+    <p class="section-sub">Portfolio mix, program-level values, expiration radar, and a redemption optimizer. All in one clean view.</p>
+    <div class="preview-container">
+      <div class="preview-topbar">
+        <div class="preview-topbar-left">
+          <div style="width:36px;height:36px;background:#4f46e5;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;">✈</div>
+          <div>
+            <div class="preview-topbar-title">PointsIQ</div>
+            <div class="preview-topbar-sub">Loyalty Portfolio Consolidator</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:6px 14px;border-radius:20px;font-size:12px;color:#bfdbfe;"><span class="preview-topbar-dot"></span>Live sync · 6 programs</div>
+      </div>
+      <div class="preview-kpis">
+        <div class="p-kpi"><div class="p-kpi-label">Total Portfolio Value</div><div class="p-kpi-val">$8,147</div><div class="p-kpi-sub">602,850 combined points</div></div>
+        <div class="p-kpi"><div class="p-kpi-label">Programs Tracked</div><div class="p-kpi-val">6</div><div class="p-kpi-sub">Banks · Airlines · Hotels</div></div>
+        <div class="p-kpi danger"><div class="p-kpi-label">⚠ At Risk</div><div class="p-kpi-val">$1,720</div><div class="p-kpi-sub">2 programs expiring soon</div></div>
+      </div>
+      <div class="preview-body">
+        <div class="p-card">
+          <div class="p-card-title">Portfolio Mix</div>
+          <div class="p-donut-wrap">
+            <svg width="150" height="150" viewBox="0 0 150 150">
+              <path d="M 75 10 A 65 65 0 0 1 75 140 L 75 105 A 30 30 0 0 0 75 45 Z" fill="#6366F1"/>
+              <path d="M 75 140 A 65 65 0 0 1 33.2 124.5 L 56.4 98 A 30 30 0 0 0 75 105 Z" fill="#0EA5E9"/>
+              <path d="M 33.2 124.5 A 65 65 0 0 1 75 10 L 75 45 A 30 30 0 0 0 56.4 98 Z" fill="#F59E0B"/>
+              <text x="75" y="75" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">$8,147</text>
+              <text x="75" y="91" text-anchor="middle" font-size="9" fill="#94a3b8">total value</text>
+            </svg>
+          </div>
+          <div class="p-legend">
+            <div class="p-legend-row"><span class="p-legend-name"><span class="p-legend-dot" style="background:#6366F1"></span>Credit Cards</span><span class="p-legend-val">$4,111</span></div>
+            <div class="p-legend-row"><span class="p-legend-name"><span class="p-legend-dot" style="background:#0EA5E9"></span>Airlines</span><span class="p-legend-val">$992</span></div>
+            <div class="p-legend-row"><span class="p-legend-name"><span class="p-legend-dot" style="background:#F59E0B"></span>Hotels</span><span class="p-legend-val">$3,044</span></div>
+          </div>
+        </div>
+        <div class="p-card">
+          <div class="p-card-title">By program</div>
+          <div class="p-progs">
+            <div class="p-prog"><div class="p-prog-left"><div class="p-prog-ic" style="background:#117ACA">UR</div><div><div class="p-prog-name">Chase UR</div><div class="p-prog-pts">124,300 pts</div></div></div><div class="p-prog-val">$2,362</div></div>
+            <div class="p-prog"><div class="p-prog-left"><div class="p-prog-ic" style="background:#006FCF">MR</div><div><div class="p-prog-name">Amex MR</div><div class="p-prog-pts">87,500 pts</div></div></div><div class="p-prog-val">$1,750</div></div>
+            <div class="p-prog"><div class="p-prog-left"><div class="p-prog-ic" style="background:#B8272D">B</div><div><div class="p-prog-name">Marriott Bonvoy</div><div class="p-prog-pts">215,000 pts</div></div></div><div class="p-prog-val">$1,720</div></div>
+            <div class="p-prog"><div class="p-prog-left"><div class="p-prog-ic" style="background:#1A3C6B">H</div><div><div class="p-prog-name">Hilton Honors</div><div class="p-prog-pts">98,750 pts</div></div></div><div class="p-prog-val">$593</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-caption">Above: a live PointsIQ dashboard with illustrative data.</div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="inner">
+    <div class="section-eyebrow" style="color:#a5b4fc">Features</div>
+    <h2 class="section-title">Everything you need to run a loyalty portfolio like a pro.</h2>
+    <p class="section-sub">Built for travelers, points enthusiasts, and anyone who hates leaving money on the table.</p>
+    <div class="features-grid">
+      <div class="feat"><div class="feat-ic">🔄</div><div class="feat-title">Auto sync every 6 hours</div><div class="feat-desc">Balances update on their own. No manual logging, no stale numbers.</div></div>
+      <div class="feat"><div class="feat-ic">💲</div><div class="feat-title">Real-dollar valuations</div><div class="feat-desc">See what your points are actually worth in USD, not just raw balances.</div></div>
+      <div class="feat"><div class="feat-ic">⏰</div><div class="feat-title">Expiration radar</div><div class="feat-desc">Get alerted weeks before points expire, with one-click rescue actions.</div></div>
+      <div class="feat"><div class="feat-ic">🎯</div><div class="feat-title">Redemption optimizer</div><div class="feat-desc">Ranked list of the highest cents-per-point opportunities across your portfolio.</div></div>
+      <div class="feat"><div class="feat-ic">🔀</div><div class="feat-title">Transfer partner map</div><div class="feat-desc">See instantly which airlines and hotels your bank points can transfer into.</div></div>
+      <div class="feat"><div class="feat-ic">🔒</div><div class="feat-title">Bank-grade security</div><div class="feat-desc">OAuth 2.0, read-only access, encrypted at rest. We never store your passwords.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why" style="background:#f8fafc;">
+  <div class="inner">
+    <div class="section-eyebrow">Why PointsIQ</div>
+    <h2 class="section-title">The only tool that starts from your portfolio.</h2>
+    <p class="section-sub">Other tools help you search. PointsIQ knows what you already own, what it is worth, when it expires, and the single highest-value move you can make with it right now. That is the whole game.</p>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-num">01</div><div class="why-title">Inventory-first, not search-first</div><div class="why-desc">We start with a complete view of your balances across every program you use. Every recommendation, alert, and redemption is personalized to the points you <em>actually have</em>, not generic advice pulled from a blog.</div></div>
+      <div class="why-card"><div class="why-num">02</div><div class="why-title">Valued in real dollars, continuously</div><div class="why-desc">Your balances are not just numbers. PointsIQ runs a live valuation model so you see what your portfolio is worth in USD, updated as redemption rates and transfer bonuses shift.</div></div>
+      <div class="why-card"><div class="why-num">03</div><div class="why-title">Proactive, not reactive</div><div class="why-desc">Expiration radar alerts you weeks before points disappear. The optimizer surfaces sweet-spot redemptions before you think to search. You stop reacting to points problems and start extracting every dollar of value.</div></div>
+      <div class="why-card"><div class="why-num">04</div><div class="why-title">Built for the way you actually travel</div><div class="why-desc">Connect once, use forever. Whether you are a casual traveler with one card or running six programs simultaneously, your dashboard adapts to how you earn and redeem.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing" style="background:white;">
+  <div class="inner">
+    <div class="section-eyebrow">Pricing</div>
+    <h2 class="section-title">Start free. Upgrade when your portfolio earns it back.</h2>
+    <p class="section-sub">Free covers the basics. Pro pays for itself the first time the optimizer catches a high-value redemption or stops points from expiring.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Free</div>
+        <div class="price-amount">$0<span>/forever</span></div>
+        <div class="price-tag">For casual points users</div>
+        <ul class="price-list">
+          <li>Track up to <strong>3 programs</strong></li>
+          <li>Portfolio valuation in USD</li>
+          <li>Basic expiration calendar</li>
+          <li>Manual redemption search</li>
+          <li>Monthly email digest</li>
+        </ul>
+        <a href="signup.html" class="price-cta ghost">Sign up free</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-ribbon">Most popular</div>
+        <div class="price-tier">Pro</div>
+        <div class="price-amount">$9<span>/month</span></div>
+        <div class="price-tag">Billed annually ($79/yr) or $12/mo monthly</div>
+        <ul class="price-list">
+          <li><strong>Unlimited</strong> programs and accounts</li>
+          <li>Redemption optimizer with ¢/pt ranking</li>
+          <li>Real-time expiration radar and alerts</li>
+          <li>Transfer partner recommendations</li>
+          <li>Award availability search</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="signup.html?plan=pro" class="price-cta primary">Start Pro →</a>
+      </div>
+    </div>
+    <p class="pricing-footnote">Points IQ may earn a referral commission when you open a credit card through our recommendations. It never changes the price you pay or the offer you receive, and we only surface cards that earn points you actually use.</p>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="inner">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">Answers to the questions we get most.</h2>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q">Is my financial data safe?<span class="faq-plus">+</span></button><div class="faq-a">Yes. PointsIQ uses read-only OAuth 2.0 connections. We never see or store your passwords. All balances and account metadata are encrypted at rest and in transit. We cannot move your points or make purchases.</div></div>
+      <div class="faq-item"><button class="faq-q">Which programs do you support?<span class="faq-plus">+</span></button><div class="faq-a">Today: Chase Ultimate Rewards, Amex Membership Rewards, Delta SkyMiles, United MileagePlus, Marriott Bonvoy, and Hilton Honors. More programs (Capital One, Citi, Hyatt, IHG, Southwest, Alaska) are rolling out during beta.</div></div>
+      <div class="faq-item"><button class="faq-q">How much does PointsIQ cost?<span class="faq-plus">+</span></button><div class="faq-a">Free for up to 3 linked programs, portfolio valuations, and basic expiration tracking. Pro is $9/month ($79/year) and unlocks unlimited programs, the redemption optimizer, real-time alerts, and award availability search.</div></div>
+      <div class="faq-item"><button class="faq-q">How are points valued in dollars?<span class="faq-plus">+</span></button><div class="faq-a">We use independently-researched cents-per-point valuations (Amex MR ≈ 2.0¢, Chase UR ≈ 1.9¢, Marriott ≈ 0.8¢). Valuations update quarterly and you can toggle between "base" and "sweet-spot" modes to see conservative vs. best-case value.</div></div>
+      <div class="faq-item"><button class="faq-q">Can PointsIQ redeem points for me?<span class="faq-plus">+</span></button><div class="faq-a">Not currently. PointsIQ is read-only for security reasons. We surface the highest-value redemptions and link you straight into the airline or hotel's booking portal. A managed booking service is on the roadmap.</div></div>
+      <div class="faq-item"><button class="faq-q">What makes PointsIQ different?<span class="faq-plus">+</span></button><div class="faq-a">Most points tools help you search, like "which transfer gets me to Tokyo" or "which seat is open on June 14." PointsIQ starts from your portfolio. It knows what you already own, what it is worth, when it expires, and where to spend it for peak value. Every recommendation is personalized to the points you actually have.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="cta">
+  <div class="inner">
+    <h2>See what your points are actually worth.</h2>
+    <p>Sign up free in under a minute. Connect your first program, and watch your portfolio come to life.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="signup.html" class="btn-primary">Sign up free →</a>
+      <a href="pointsiq.html" class="btn-ghost">See the dashboard first</a>
+    </div>
+    <p style="font-size:13px;color:#c7d2fe;margin-top:22px;">No credit card required · Free forever for 3 programs</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand"><div class="footer-logo">✈</div>PointsIQ</div>
+        <div class="footer-tagline">Your entire loyalty portfolio. Tracked, valued, and optimized. Built for travelers who hate leaving points on the table.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="signup.html">Sign up free</a></li>
+          <li><a href="login.html">Log in</a></li>
+          <li><a href="pointsiq.html">See the dashboard</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="lean-canvas.html">Business plan</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 PointsIQ · Demo data shown on dashboard is illustrative</div>
+      <div class="footer-socials">
+        <a href="#" title="Twitter">𝕏</a>
+        <a href="#" title="LinkedIn">in</a>
+        <a href="#" title="GitHub">◉</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
