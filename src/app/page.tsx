@@ -12,7 +12,7 @@ export default function LandingPage() {
             >
               ✈
             </div>
-            <div className="text-[18px] font-extrabold">PointsIQ</div>
+            <div className="text-[18px] font-extrabold">Kaivion</div>
           </div>
           <nav className="flex items-center gap-3 text-[14px]">
             <Link href="/login" className="text-blue-200 hover:text-white">
@@ -57,7 +57,7 @@ export default function LandingPage() {
 
       <footer className="bg-slate-900 text-slate-400 px-6 py-6 text-[13px]">
         <div className="max-w-[980px] mx-auto flex items-center justify-between">
-          <div>© 2026 PointsIQ</div>
+          <div>© 2026 Kaivion</div>
           <div className="flex gap-4">
             <Link href="/login" className="hover:text-white">
               Log in

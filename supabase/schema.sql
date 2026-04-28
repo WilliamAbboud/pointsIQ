@@ -1,4 +1,4 @@
--- PointsIQ database schema
+-- Kaivion database schema
 -- Run this in the Supabase SQL Editor: Dashboard > SQL Editor > New query
 -- Paste the entire file and click "Run".
 

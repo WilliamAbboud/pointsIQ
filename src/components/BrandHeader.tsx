@@ -24,7 +24,7 @@ export default function BrandHeader({ showHomeLink = false }: Props) {
             ✈
           </div>
           <div>
-            <div className="text-[20px] font-extrabold tracking-tight">PointsIQ</div>
+            <div className="text-[20px] font-extrabold tracking-tight">Kaivion</div>
             <div className="text-[12px] text-blue-300 mt-0.5">
               Your loyalty portfolio, finally worth what it should be
             </div>

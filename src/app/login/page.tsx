@@ -2,7 +2,7 @@ import Link from "next/link";
 import BrandHeader from "@/components/BrandHeader";
 import LoginForm from "./LoginForm";
 
-export const metadata = { title: "Log in — PointsIQ" };
+export const metadata = { title: "Log in — Kaivion" };
 
 export default function LoginPage() {
   return (

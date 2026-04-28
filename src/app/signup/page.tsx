@@ -2,7 +2,7 @@ import Link from "next/link";
 import BrandHeader from "@/components/BrandHeader";
 import SignupForm from "./SignupForm";
 
-export const metadata = { title: "Sign up — PointsIQ" };
+export const metadata = { title: "Sign up — Kaivion" };
 
 export default function SignupPage() {
   return (

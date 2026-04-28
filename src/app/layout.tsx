@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PointsIQ — Loyalty Portfolio Tracker",
+  title: "Kaivion — Loyalty Portfolio Tracker",
   description:
     "Your entire loyalty portfolio, finally worth what it should be.",
 };

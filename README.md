@@ -1,51 +1,57 @@
-# PointsIQ
+# Kaivion
 
 Your entire loyalty portfolio, finally worth what it should be.
 
-PointsIQ tracks every mile, point, and loyalty balance you own across banks, airlines, and hotels. It values them in real dollars, catches expirations before they happen, and shows you exactly where to redeem for peak value.
+Kaivion tracks every mile, point, and loyalty balance you own across banks, airlines, and hotels. It values them in real dollars, catches expirations before they happen, and shows you exactly where to redeem for peak value.
 
-## What is in this repo
+## Stack
 
-| File | Purpose |
-| --- | --- |
-| `index.html` | Marketing landing page |
-| `pointsiq.html` | Live dashboard demo |
-| `signup.html` | Account creation page |
-| `login.html` | Log in page |
-| `lean-canvas.html` | Business plan (Lean Canvas) |
-| `pointsiq.jsx` | Original React component the dashboard was derived from |
+- Next.js 16 (App Router, TypeScript, Tailwind v4)
+- Supabase (Postgres + Auth, Row Level Security)
+- Resend (transactional email)
+- Vercel (hosting and CI)
 
-All pages are self-contained single-file HTML. No build step, no dependencies. Open `index.html` in any browser to view the full product.
-
-## Local preview
+## Local development
 
 ```bash
-# From the repo root
-open index.html
-# Or serve with any static server
-python3 -m http.server 8000
+# Install dependencies
+npm install
+
+# Add your env vars (copy and fill in)
+cp .env.local.example .env.local
+
+# Run the dev server
+npm run dev
 ```
 
-Then visit [http://localhost:8000](http://localhost:8000).
+Then visit [http://localhost:3000](http://localhost:3000).
 
-## Deployed version
+Required env vars (in `.env.local`):
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SITE_URL`
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `RESEND_FROM_NAME`
 
-Once GitHub Pages is enabled for this repo (Settings → Pages → Deploy from main branch, root folder), the site will be live at:
+## Database schema
 
-`https://WilliamAbboud.github.io/points-iq/`
+The schema is in `supabase/schema.sql`. Run it once in the Supabase SQL Editor to create the `user_programs` table and Row Level Security policies.
 
-Share this URL via WhatsApp, email, or anywhere else.
+## Legacy
+
+The original static-HTML prototype lives in `legacy/`. Pages: landing, dashboard demo, signup, login, lean canvas, and the original React reference component. Kept for reference; not built or deployed.
 
 ## Revenue model
 
-1. **Subscription.** $9 per month or $79 per year. Unlocks the optimizer, alerts, unlimited programs, and availability search.
-2. **Credit card affiliate commissions.** $200 to $900 per approved card. Recommendations based on portfolio gaps.
-3. **Concierge booking service** *(Year 2).* $50 to $100 per ticket for redemption support.
-4. **Transfer bonus placement fees** *(Year 2 onward).*
-5. **Business to business licensing** *(later).* Portfolio layer for issuers or travel brands.
+1. Subscription. About nine dollars per month or seventy-nine dollars per year. Unlocks the optimizer, alerts, unlimited programs, and availability search.
+2. Credit card affiliate commissions. Two hundred to nine hundred dollars per approved card. Recommendations based on portfolio gaps.
+3. Concierge booking service (Year 2). Fifty to one hundred dollars per ticket for redemption support.
+4. Transfer bonus placement fees (Year 2 onward).
+5. Business to business licensing (later). Portfolio layer for issuers or travel brands.
 
-Expected mix in Year 2: about 45% subscription, 45% affiliate, 10% concierge. See `lean-canvas.html` for the full business plan.
+Expected mix in Year 2: about forty-five percent subscription, forty-five percent affiliate, ten percent concierge. See `legacy/lean-canvas.html` for the original business plan.
 
 ## Status
 
-Pre-launch. All data in the dashboard is illustrative.
+Phase 1 closing. Real auth, manual program entry, dashboard reading user data, transactional email through Resend on a verified domain. Daily expiration alert cron is the last Phase 1 task.

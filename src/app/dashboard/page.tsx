@@ -94,7 +94,7 @@ export default async function DashboardPage() {
                 ✈
               </div>
               <div>
-                <div className="text-[20px] font-extrabold">PointsIQ</div>
+                <div className="text-[20px] font-extrabold">Kaivion</div>
                 <div className="text-[12px] text-blue-300 mt-0.5">
                   {user.email}
                 </div>
