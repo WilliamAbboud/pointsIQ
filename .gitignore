@@ -1,24 +1,42 @@
-# macOS
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
 .DS_Store
-.AppleDouble
-.LSOverride
+*.pem
 
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-# Logs and local session data
-*.log
-audit.jsonl
+# env files (can opt-in for committing if needed)
+.env*
+!.env.local.example
 
-# Build artifacts
-node_modules/
-dist/
-build/
+# vercel
+.vercel
 
-# Secrets — NEVER commit tokens
-.env
-.env.local
-*.pat
+# typescript
+*.tsbuildinfo
+next-env.d.ts
